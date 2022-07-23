@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SecureBadge.Entities;
+using SecureBadge.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,17 @@ namespace SecureBadge
         {
             services.AddDbContext<ApplicationContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
 
+            services.AddIdentity<User, IdentityRole>(opt => {
+                opt.Password.RequiredLength = 7;
+                opt.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<ApplicationContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddControllersWithViews();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
+
+            services.AddAutoMapper(typeof(Startup));
+            services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(2));
             services.AddControllersWithViews();
         }
 
@@ -48,6 +61,7 @@ namespace SecureBadge
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
