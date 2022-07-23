@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SecureBadge.Entities.Models;
 using SecureBadge.Models;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,12 @@ namespace SecureBadge.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Badges()
+        {
+            List<BadgesModel> badges = new List<BadgesModel>(); 
+            return View(badges);
         }
 
         public IActionResult Privacy()
