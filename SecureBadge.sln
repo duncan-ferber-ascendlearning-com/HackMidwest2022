@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureBadge", "SecureBadge\SecureBadge.csproj", "{44192B9A-3E83-47CC-863F-F11653882BC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureBadge", "SecureBadge\SecureBadge.csproj", "{44192B9A-3E83-47CC-863F-F11653882BC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureBadge.API", "SecureBadge.API\SecureBadge.API.csproj", "{C0D729A2-885C-4065-B0C2-34A03A5054FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{44192B9A-3E83-47CC-863F-F11653882BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44192B9A-3E83-47CC-863F-F11653882BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44192B9A-3E83-47CC-863F-F11653882BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D729A2-885C-4065-B0C2-34A03A5054FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D729A2-885C-4065-B0C2-34A03A5054FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D729A2-885C-4065-B0C2-34A03A5054FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D729A2-885C-4065-B0C2-34A03A5054FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
