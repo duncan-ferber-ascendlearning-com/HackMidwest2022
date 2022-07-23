@@ -14,21 +14,18 @@ namespace SecureBadge.API
 
             var buffer = AssetBytes(assetPath);
 
-            using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api.pinata.cloud/pinning/pinFileToIPFS"))
-            {
-                request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
+            using var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api.pinata.cloud/pinning/pinFileToIPFS");
+            request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
 
-                var multipartContent = new MultipartFormDataContent();
-                multipartContent.Add(new ByteArrayContent(buffer), "file", fileName);
-                multipartContent.Add(new StringContent("\"{\"cidVersion\": 1}\""), "pinataOptions");
-                multipartContent.Add(new StringContent("\"{\"name\": \"MedicalRecord\", \"keyvalues\": {\"company\": \"Ascend\"}}\""), "pinataMetadata");
+            var multipartContent = new MultipartFormDataContent();
+            multipartContent.Add(new ByteArrayContent(buffer), "file", fileName);
+            multipartContent.Add(new StringContent("\"{\"cidVersion\": 1}\""), "pinataOptions");
+            multipartContent.Add(new StringContent("\"{\"name\": \"MedicalRecord\", \"keyvalues\": {\"company\": \"Ascend\"}}\""), "pinataMetadata");
 
-                request.Content = multipartContent;
+            request.Content = multipartContent;
 
-                var response = await _httpClient.SendAsync(request);
-                var result = await response.Content.ReadAsStringAsync();
-                
-            }
+            var response = await _httpClient.SendAsync(request);
+            var result = await response.Content.ReadAsStringAsync();
 
             return false;
         }
