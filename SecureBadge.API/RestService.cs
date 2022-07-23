@@ -13,25 +13,33 @@ namespace SecureBadge.API
         private readonly HttpClient _httpClient = new HttpClient();
         private const string Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIzNDk5YjUzYy04YTkxLTRmMzUtOGRmOC1jNWYyNmIzYjkzZTgiLCJlbWFpbCI6ImFzaG9rY2hpcnUxMjA1QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiIxMDY2MWVhZDY0NzZkMTA3MGMxMiIsInNjb3BlZEtleVNlY3JldCI6ImExYjE1OTc4NWJmN2Q5YmNmYjdjYWZjNDMyNjY5NTFlMDcxYmI2Mzc4ZDg5NTE1ZDBjMzFiNDVjNjJjOGIwZGQiLCJpYXQiOjE2NTg0MjUwMDB9.5miZT5bVNrF4SiQcnJHbIuH_MW4eM6yCWLnnsZ9Z7qY";
 
-        public async Task<bool> PostToPinataApi(string assetPath, string fileName)
+        public async Task<string> PostToPinataApi(string assetPath, string fileName)
         {
 
             var buffer = AssetBytes(assetPath);
-
-            using var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api.pinata.cloud/pinning/pinFileToIPFS");
+            var pinataApiUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+            using var request = new HttpRequestMessage(new HttpMethod("POST"), pinataApiUrl);
             request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
 
             var multipartContent = new MultipartFormDataContent();
             multipartContent.Add(new ByteArrayContent(buffer), "file", fileName);
-            multipartContent.Add(new StringContent("\"{\"cidVersion\": 1}\""), "pinataOptions");
-            multipartContent.Add(new StringContent("\"{\"name\": \"Certificate\", \"keyvalues\": {\"company\": \"Ascend\"}}\""), "pinataMetadata");
+            multipartContent.Add(new StringContent(JsonConvert.SerializeObject(new {cidVersion = 1})), "pinataOptions");
+            multipartContent.Add(new StringContent( JsonConvert.SerializeObject(new PinataFileMetadata()
+            { Name = fileName,
+              KeyValues = new KeyValues()
+              {
+                  Company = "Ascend"
+              }
+
+            })), "pinataMetadata");
 
             request.Content = multipartContent;
 
             var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
 
-            return false;
+            var deserializedResult = JsonConvert.DeserializeObject<IpfsResponse>(result);
+            return pinataApiUrl + "/" + deserializedResult.IpfsHash;
         }
 
         public byte[] AssetBytes(string assetPath)
