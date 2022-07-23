@@ -17,7 +17,8 @@ namespace SecureBadge.API
         {
 
             var buffer = AssetBytes(assetPath);
-            var pinataApiUrl = "https://securebadge.mypinata.cloud/ipfs/";
+            var pinataApiUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+            var returnURL = "https://securebadge.mypinata.cloud/ipfs/";
             using var request = new HttpRequestMessage(new HttpMethod("POST"), pinataApiUrl);
             request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
 
@@ -39,7 +40,7 @@ namespace SecureBadge.API
             var result = await response.Content.ReadAsStringAsync();
 
             var deserializedResult = JsonConvert.DeserializeObject<IpfsResponse>(result);
-            return pinataApiUrl + "/" + deserializedResult.IpfsHash;
+            return returnURL + "/" + deserializedResult.IpfsHash;
         }
 
         public byte[] AssetBytes(string assetPath)

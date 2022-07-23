@@ -46,6 +46,11 @@ namespace SecureBadge.Controllers
             return View(assessmentModel);
         }
 
+        public IActionResult Badge()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Badge(AssessmentModel model)
