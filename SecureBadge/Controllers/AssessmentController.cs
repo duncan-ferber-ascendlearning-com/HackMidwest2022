@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SecureBadge.API;
 using SecureBadge.Entities;
 using SecureBadge.Entities.Models;
 using System;
@@ -49,7 +50,8 @@ namespace SecureBadge.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SubmitAssessment(AssessmentModel model)
         {
-            var correctCount = 0;
+            var badge = new PdfBadgeGenerator();
+            badge.GeneratePdfBatch();
 
             return RedirectToAction(nameof(HomeController.Badges), "Home");
         }
