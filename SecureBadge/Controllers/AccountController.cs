@@ -53,7 +53,6 @@ namespace SecureBadge.Controllers
                 }
                 return View(userModel);
             }
-            await _userManager.AddToRoleAsync(user, "Member");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
