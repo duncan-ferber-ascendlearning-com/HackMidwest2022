@@ -5,6 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="BadgeTemplate\BadgeTemplate.css" />
+    <None Remove="BadgeTemplate\BadgeTemplate.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="BadgeTemplate\BadgeTemplate.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BadgeTemplate\BadgeTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IronPdf" Version="2022.7.6986" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
   </ItemGroup>
