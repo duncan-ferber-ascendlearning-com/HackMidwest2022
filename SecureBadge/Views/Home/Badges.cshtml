@@ -1,6 +1,14 @@
-﻿@model IEnumerable<SecureBadge.Entities.Models.BadgesModel>
+﻿@model IEnumerable<SecureBadge.API.Models.PinnedFileNameAndUrl>
 
+List of Badges:
+<table><tr><td>Badge Name</td><td>View Badge</td></tr>
 @foreach(var item in @Model)
             {
-
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td><a href="@item.Url" title="@item.Name"><img alt="View Badge" src="@Url.Content("~/Images/pdflogo.png")">
+       </a></td>
+                </tr>
+       
             }
+</table>
