@@ -1,6 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using SecureBadge.API.Models;
 
 namespace SecureBadge.API
 {
@@ -53,5 +57,18 @@ namespace SecureBadge.API
             return buffer;
 
         }
+
+        public async Task<List<PinnedFileNameAndUrl>> GetPinnedFileListAsync()
+        {
+            using var request = new HttpRequestMessage(new HttpMethod("GET"), "https://api.pinata.cloud/data/pinList?status=pinned&pinSizeMin=100");
+            request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
+            var response = await _httpClient.SendAsync(request);
+            var result = await response.Content.ReadAsStringAsync();
+            var deserializedResult = JsonConvert.DeserializeObject<PinnedFileList>(result);
+            var pinnedFiles = deserializedResult.Rows.Select(row => new PinnedFileNameAndUrl { Name = row.Metadata.Name, Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
+            return pinnedFiles;
+        }
+
+        
     }
 }
