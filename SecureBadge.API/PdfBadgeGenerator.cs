@@ -19,7 +19,13 @@ namespace SecureBadge.API
             var renderer = new IronPdf.ChromePdfRenderer();
             var filePath = Path.Combine(@"C:\\Gitlab\HackMidwest2022\SecureBadge\SecureBadge.API", @"Assets\", "BadgeTemplate.html");
             var pdf = renderer.RenderHTMLFileAsPdf(filePath);
-            pdf.SaveAs(Guid.NewGuid() + ".pdf");
+            var guid = Guid.NewGuid();
+            var assetPath = Path.Combine(@"C:\\Gitlab\HackMidwest2022\SecureBadge\SecureBadge.API", @"Assets\",
+                guid + ".pdf");
+            pdf.SaveAs(assetPath);
+
+            var restService = new RestService();
+            var result = restService.PostToPinataApi(assetPath, guid + "_Certificate").Result;
         }
     }
 }
