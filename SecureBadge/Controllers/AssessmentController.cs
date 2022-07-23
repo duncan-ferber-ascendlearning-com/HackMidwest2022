@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureBadge.Entities;
 using SecureBadge.Entities.Models;
@@ -17,8 +18,15 @@ namespace SecureBadge.Controllers
         {
             _context = context;
         }
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            var assessments = await _context.Assessments.ToListAsync();
+            return View(assessments);
+        }
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(int? id = 1)
+        public async Task<IActionResult> Assessment(int? id = 1)
         {
             var assessmentModel = new AssessmentModel();
             var assessment = await _context.Assessments.FirstOrDefaultAsync(x => x.AssessmentID == id);
@@ -42,8 +50,8 @@ namespace SecureBadge.Controllers
         public IActionResult SubmitAssessment(AssessmentModel model)
         {
             var correctCount = 0;
-            
-            return View();
+
+            return RedirectToAction(nameof(HomeController.Badges), "Home");
         }
     }
 }
