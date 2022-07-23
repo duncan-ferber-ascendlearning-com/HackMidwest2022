@@ -19,5 +19,7 @@ namespace SecureBadge.Entities
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDefaultSchema("Badge");
         }
+
+        public DbSet<AssessmentResult> AssessmentResults { get; set; }
     }
 }
