@@ -26,8 +26,9 @@ namespace SecureBadge.Controllers
 
         public IActionResult Badges()
         {
-            List<BadgesModel> badges = new List<BadgesModel>(); 
-            return View(badges);
+            var service = new API.RestService();
+            var result = service.GetPinnedFileListAsync().Result;
+            return View(result);
         }
 
         public IActionResult Privacy()
