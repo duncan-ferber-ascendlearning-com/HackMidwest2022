@@ -21,5 +21,8 @@ namespace SecureBadge.Entities
         }
 
         public DbSet<AssessmentResult> AssessmentResults { get; set; }
+        public DbSet<Assessment> Assessments { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Choice> Choices { get; set; }
     }
 }
