@@ -40,7 +40,7 @@ namespace SecureBadge.API
             var result = await response.Content.ReadAsStringAsync();
 
             var deserializedResult = JsonConvert.DeserializeObject<IpfsResponse>(result);
-            return returnURL + "/" + deserializedResult.IpfsHash;
+            return returnURL +  deserializedResult.IpfsHash;
         }
 
         public byte[] AssetBytes(string assetPath)
