@@ -1,14 +1,23 @@
 ﻿@model IEnumerable<SecureBadge.API.Models.PinnedFileNameAndUrl>
+<div class="container">
 
-List of Badges:
-<table><tr><td>Badge Name</td><td>View Badge</td></tr>
-@foreach(var item in @Model)
+   <h2>Badges</h2>
+   <table class="table table-bordered table-striped table-responsive-stack"  id="tableOne">
+      <thead class="thead-dark">
+         <tr>
+            <th>Name</th>
+            <th>View Badge</th>
+         </tr>
+      </thead>
+      <tbody>
+          @foreach(var item in @Model)
             {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                    <td><a href="@item.Url" title="@item.Name"><img alt="View Badge" src="@Url.Content("~/Images/pdflogo.png")">
-       </a></td>
-                </tr>
-       
+             <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td><a href="@item.Url" title="@item.Name" target="_blank"><img alt="View Badge" src="@Url.Content("~/Images/pdflogo.png")"  ></a></td>
+             </tr>
             }
-</table>
+      </tbody>
+   </table>
+</div>
+<!-- /.container -->
