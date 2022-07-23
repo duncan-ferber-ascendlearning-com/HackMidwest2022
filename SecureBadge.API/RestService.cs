@@ -17,7 +17,7 @@ namespace SecureBadge.API
         {
 
             var buffer = AssetBytes(assetPath);
-            var pinataApiUrl = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+            var pinataApiUrl = "https://securebadge.mypinata.cloud/ipfs/";
             using var request = new HttpRequestMessage(new HttpMethod("POST"), pinataApiUrl);
             request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
 

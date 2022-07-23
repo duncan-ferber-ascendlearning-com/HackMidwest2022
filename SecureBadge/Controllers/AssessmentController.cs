@@ -48,12 +48,13 @@ namespace SecureBadge.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SubmitAssessment(AssessmentModel model)
+        public IActionResult Badge(AssessmentModel model)
         {
             var badge = new PdfBadgeGenerator();
-            badge.GeneratePdfBatch();
+            var badgeModel = new BadgeModel();
+            badgeModel.URL = badge.GeneratePdfBatch();
 
-            return RedirectToAction(nameof(HomeController.Badges), "Home");
+            return View(badgeModel);
         }
     }
 }

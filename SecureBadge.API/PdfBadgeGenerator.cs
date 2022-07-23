@@ -17,10 +17,10 @@ namespace SecureBadge.API
         public string GeneratePdfBatch()
         {
             var renderer = new IronPdf.ChromePdfRenderer();
-            var filePath = Path.Combine(@"BadgeTemplate\", "BadgeTemplate.html");
+            var filePath = Path.Combine(@"C:\Projects\SecureBadge\SecureBadge.API\BadgeTemplate\", "BadgeTemplate.html");
             var pdf = renderer.RenderHTMLFileAsPdf(filePath);
             var guid = Guid.NewGuid();
-            var assetPath = Path.Combine(@"BadeTemplate\", guid + ".pdf");
+            var assetPath = Path.Combine(@"C:\Projects\SecureBadge\SecureBadge.API\BadgeTemplate\", guid + ".pdf");
             pdf.SaveAs(assetPath);
 
             var restService = new RestService();
