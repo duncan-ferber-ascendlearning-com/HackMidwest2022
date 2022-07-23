@@ -20,7 +20,7 @@ namespace SecureBadge.API
             var multipartContent = new MultipartFormDataContent();
             multipartContent.Add(new ByteArrayContent(buffer), "file", fileName);
             multipartContent.Add(new StringContent("\"{\"cidVersion\": 1}\""), "pinataOptions");
-            multipartContent.Add(new StringContent("\"{\"name\": \"MedicalRecord\", \"keyvalues\": {\"company\": \"Ascend\"}}\""), "pinataMetadata");
+            multipartContent.Add(new StringContent("\"{\"name\": \"Certificate\", \"keyvalues\": {\"company\": \"Ascend\"}}\""), "pinataMetadata");
 
             request.Content = multipartContent;
 
