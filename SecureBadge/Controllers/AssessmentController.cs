@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureBadge.API;
@@ -14,10 +15,12 @@ namespace SecureBadge.Controllers
     public class AssessmentController : Controller
     {
         private readonly ApplicationContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public AssessmentController(ApplicationContext context)
+        public AssessmentController(ApplicationContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         [Authorize]
         public async Task<IActionResult> Index()
@@ -53,11 +56,12 @@ namespace SecureBadge.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Badge(AssessmentModel model)
+        public async Task<IActionResult> Badge(AssessmentModel model)
         {
             var badge = new PdfBadgeGenerator();
             var badgeModel = new BadgeModel();
-            badgeModel.URL = badge.GeneratePdfBatch();
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            badgeModel.URL = badge.GeneratePdfBatch(user.FirstName, user.LastName);
 
             return View(badgeModel);
         }
