@@ -184,3 +184,21 @@ body {
             font-size: 18px;
         }
 }
+
+/* Assessment Styles */
+
+.question {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 30px;
+    margin: 10px;
+    width: 100%;
+    background-color: lightgray;
+}
+
+.answer-group {
+    padding: 15px;
+}
+.answer {
+    padding: 5px;
+}
