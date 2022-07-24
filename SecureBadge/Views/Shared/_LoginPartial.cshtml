@@ -4,27 +4,22 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li>
         <a class="nav-link navbar-link" asp-controller="Assessment"
            asp-action="Index">My Assessments</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Badges">My Badges</a>
-    </li>
-    <li>
+    
         <a class="nav-link navbar-link" asp-controller="Home" asp-action="Index"
            title="Welcome">Welcome @User.Claims.FirstOrDefault(c => c.Type == "firstname").Value @User.Claims.FirstOrDefault(c => c.Type == "lastname").Value!</a>
-    </li>
+    
 
 }
 else
 {
-    <li>
+    
         <a class="nav-link navbar-link" asp-controller="Account"
            asp-action="Login">Login</a>
-    </li>
-    <li>
+    
         <a class="nav-link navbar-link" asp-controller="Account"
            asp-action="Register">Register</a>
-    </li>
+    
 }
