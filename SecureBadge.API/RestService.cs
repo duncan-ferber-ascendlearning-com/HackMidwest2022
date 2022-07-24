@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SecureBadge.API.Models;
 
 namespace SecureBadge.API
@@ -78,7 +79,7 @@ namespace SecureBadge.API
             var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
             var deserializedResult = JsonConvert.DeserializeObject<PinnedFileList>(result);
-            return (from row in deserializedResult.Rows where row.Metadata.KeyValues.Name.ToLower().Trim() == name.ToLower().Trim() && !string.IsNullOrEmpty(row.Metadata.KeyValues.Assessment) && !string.IsNullOrEmpty(row.Metadata.KeyValues.DateCompleted) && !string.IsNullOrEmpty(row.Metadata.KeyValues.TimeCompleted) select new PinnedFileNameAndUrl() { Name = row.Metadata.KeyValues.Assessment + "_Certificate " + row.Metadata.KeyValues.DateCompleted + ' ' + row.Metadata.KeyValues.TimeCompleted  , Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
+            return (from row in deserializedResult.Rows where !string.IsNullOrEmpty(row.Metadata.KeyValues.Name) && row.Metadata.KeyValues.Name.ToLower().Trim() == name.ToLower().Trim() && !string.IsNullOrEmpty(row.Metadata.KeyValues.Assessment) && !string.IsNullOrEmpty(row.Metadata.KeyValues.DateCompleted) && !string.IsNullOrEmpty(row.Metadata.KeyValues.TimeCompleted) select new PinnedFileNameAndUrl() { Name = row.Metadata.KeyValues.Assessment + "_Certificate " + row.Metadata.KeyValues.DateCompleted + ' ' + row.Metadata.KeyValues.TimeCompleted  , Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
         }
 
         
