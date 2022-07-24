@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using SecureBadge.API.Models;
 
 namespace SecureBadge.Controllers
 {
@@ -35,6 +36,12 @@ namespace SecureBadge.Controllers
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
             
             var result = service.GetPinnedFileListAsync(user.FirstName+'_'+ user.LastName).Result;
+            result.Add(new PinnedFileNameAndUrl()
+            {
+                Name = "Medical_Record 7/24/2022 9:10 AM",
+                Url = "https://securebadge.mypinata.cloud/ipfs/bafkreiaveconzuktyosgbjgvfe67jk3bfosticc4mpchs2eojwd4zza4x4?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRleGVzIjpbIjBhZjg0MjQwNzU0NTIyYTJiNWEzMjAzZTkwN2U3MzZlIl0sImFjY291bnRJZCI6IjM0OTliNTNjLThhOTEtNGYzNS04ZGY4LWM1ZjI2YjNiOTNlOCIsImlhdCI6MTY1ODY3MjU4MSwiZXhwIjoxNjU4Njc2MTgxfQ.5weK8av5ZsAr88YmDPkseJygFYALfXdT7x9E5MUslaA"
+
+            });
             return View(result);
         }
 
