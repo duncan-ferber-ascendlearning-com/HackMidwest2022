@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using SecureBadge.API.Models;
+using Telnyx;
 
 namespace SecureBadge.API
 {
@@ -39,7 +40,36 @@ namespace SecureBadge.API
 
             var restService = new RestService();
             var result = restService.PostToPinataApi(assetPath, guid + "_Certificate", assessmentName, formatFirstName + "_" + formatLastName, dateCompleted, timeCompleted).Result;
+            SendMessageToLearner(result);
             return result;
         }
+
+
+        public void SendMessageToLearner(string result)
+        {
+            try
+            {
+                const string TELNYX_API_KEY = "KEY01822E449A00BC4BB944D94B26B37A3C_d4zQrNbHed3sp9ah412eQd";
+                TelnyxConfiguration.SetApiKey(TELNYX_API_KEY);
+                var service = new MessagingSenderIdService();
+                var options = new NewMessagingSenderId
+                {
+                    From = "+19133571167", // alphanumeric sender id
+                    To = "+19136020379",
+                    Text = "Congratulations!.You earned a badge from Ascend Learning! Check it out!  " + result
+                };
+                var messageResponse = service.CreateAsync(options).Result;
+            }
+            catch (Exception e)
+            {
+                //ignore
+            }
+            
+           
+
+        }
     }
+
+
+
 }
