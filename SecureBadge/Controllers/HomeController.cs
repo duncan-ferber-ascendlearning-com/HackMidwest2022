@@ -34,7 +34,7 @@ namespace SecureBadge.Controllers
             var service = new API.RestService();
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
             
-            var result = service.GetPinnedFileListAsync().Result;
+            var result = service.GetPinnedFileListAsync(user.FirstName+'_'+ user.LastName).Result;
             return View(result);
         }
 
