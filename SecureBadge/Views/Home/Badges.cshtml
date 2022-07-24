@@ -18,11 +18,14 @@
                 <td style="width:25%">
                     <a href="@item.Url" title="@item.Name" target="_blank"><img style="height:50px;" alt="View Badge" src="@Url.Content("~/Images/pdflogo.png")"  ></a></td>
                 <td style="width:25%">
-                    <a class="share-button" target="_blank" href="https://twitter.com/intent/tweet?text= I earned a badge from Ascend Learning! Check it out! @item.Url">Tweet</a>
-                    <span class="share-button">
-                    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
-                    <script type="IN/Share" data-url="@item.Url"></script>
-                    </span>
+                    @if (!item.Url.Contains("accessToken"))
+                       {
+                            <a class="share-button" target="_blank" href="https://twitter.com/intent/tweet?text= I earned a badge from Ascend Learning! Check it out! @item.Url">Tweet</a>
+                            <span class="share-button">
+                                <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+                                <script type="IN/Share" data-url="@item.Url"></script>
+                            </span>                       
+                       }
                 </td>
              </tr>
             }
