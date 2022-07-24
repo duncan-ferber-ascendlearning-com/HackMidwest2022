@@ -5,19 +5,35 @@
    <table class="table table-bordered table-striped table-responsive-stack"  id="tableOne">
       <thead class="thead-dark">
          <tr>
-            <th>Name</th>
-            <th>View Badge</th>
+            <th style="width:50%">Name</th>
+            <th style="width:25%">View Badge</th>
+            <th style="width:25%">Share</th>
          </tr>
       </thead>
       <tbody>
           @foreach(var item in @Model)
             {
              <tr>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td><a href="@item.Url" title="@item.Name" target="_blank"><img alt="View Badge" src="@Url.Content("~/Images/pdflogo.png")"  ></a></td>
+                <td style="width:50%">@Html.DisplayFor(modelItem => item.Name)</td>
+                <td style="width:25%">
+                    <a href="@item.Url" title="@item.Name" target="_blank"><img alt="View Badge" src="@Url.Content("~/Images/pdflogo.png")"  ></a></td>
+                <td style="width:25%">
+                    <a class="share-button" target="_blank" href="https://twitter.com/intent/tweet?text= I earned a badge from Ascend Learning! Check it out! @item.Url">Tweet</a>
+                    <span class="share-button">
+                    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+                    <script type="IN/Share" data-url="@item.Url"></script>
+                    </span>
+                </td>
              </tr>
             }
       </tbody>
    </table>
 </div>
 <!-- /.container -->
+<style>
+    .share-button{
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 6px 15px;
+    }
+</style>
