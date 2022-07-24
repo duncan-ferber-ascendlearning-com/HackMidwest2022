@@ -23,7 +23,9 @@ namespace SecureBadge.API.Models
                 case 0:return ImageUrl1;
                 case 1:return ImageUrl2;
                 case 2:return ImageUrl3;
+                
             }
+            return ImageUrl1;
         }
     }
 }
