@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SecureBadge.Entities;
 using SecureBadge.Entities.Models;
 using SecureBadge.Models;
 using System;
@@ -13,20 +16,24 @@ namespace SecureBadge.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult Badges()
+        [Authorize]
+        public async Task<IActionResult> Badges()
         {
             var service = new API.RestService();
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            
             var result = service.GetPinnedFileListAsync().Result;
             return View(result);
         }
