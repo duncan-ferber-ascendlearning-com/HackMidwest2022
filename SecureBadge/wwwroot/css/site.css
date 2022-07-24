@@ -133,16 +133,18 @@ body {
     padding-top: 20px;
 }
 
-    .sidebar a {
+    .sidebar a, .sidebar button {
         padding: 8px 8px 8px 15px;
         text-decoration: none;
         font-size: 20px;
         color: #c6c3c3;
         display: block;
         transition: 0.3s;
+        border: none;
+        background: none;
     }
 
-        .sidebar a:hover {
+        .sidebar a:hover, .sidebar button:hover {
             color: #f1f1f1;
         }
 
