@@ -1,25 +1,26 @@
 ﻿@model SecureBadge.Entities.Models.AssessmentModel
-
-<h1>@Model.Title</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Badge">
-            @foreach (var item in Model.Questions)
-            {
-                <div>@item.Text</div>
-                <div class="form-group">
-                    <ul>
-                        @foreach (var a in item.Choices)
-                        {
-                            <li><input type="radio" id="html" name="@item.QuestionID" value="@a.IsCorrect">@a.Text</li>
-                        }
-                    </ul>
-                </div>
-            }
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary" />
+    <div class="container">
+        <h1>@Model.Title</h1>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Badge">
+                    @foreach (var item in Model.Questions)
+                    {
+                        <div>@item.Text</div>
+                        <div class="form-group">
+                            <ul>
+                                @foreach (var a in item.Choices)
+                                {
+                                    <li><input type="radio" id="html" name="@item.QuestionID" value="@a.IsCorrect">@a.Text</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-</div>
