@@ -5,11 +5,17 @@
 @if (SignInManager.IsSignedIn(User))
 {
         <a class="nav-link navbar-link" asp-controller="Assessment"
-           asp-action="Index">My Assessments</a>
-        <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Badges">My Badges</a>
+           asp-action="Index">
+          <i class="icon-book"></i> 
+           My Assessments</a>
+        <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Badges">
+            <i class="icon-trophy"></i>
+            My Badges</a>
     
         <a class="nav-link navbar-link" asp-controller="Home" asp-action="Index"
-           title="Welcome">Welcome @User.Claims.FirstOrDefault(c => c.Type == "firstname").Value @User.Claims.FirstOrDefault(c => c.Type == "lastname").Value!</a>
+           title="Welcome">
+           <i class="icon-user"></i>
+           Welcome @User.Claims.FirstOrDefault(c => c.Type == "firstname").Value @User.Claims.FirstOrDefault(c => c.Type == "lastname").Value!</a>
     
 
 }
