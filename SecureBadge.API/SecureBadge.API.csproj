@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,14 +6,22 @@
 
   <ItemGroup>
     <None Remove="BadgeTemplate\BadgeTemplate.css" />
-    <None Remove="BadgeTemplate\BadgeTemplate.html" />
+    <None Remove="BadgeTemplate\CNABadgeTemplate.html" />
+    <None Remove="BadgeTemplate\EMTBadgeTemplate.html" />
+    <None Remove="BadgeTemplate\PFTBadgeTemplate.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="BadgeTemplate\PFTBadgeTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BadgeTemplate\EMTBadgeTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BadgeTemplate\BadgeTemplate.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BadgeTemplate\BadgeTemplate.html">
+    <Content Include="BadgeTemplate\CNABadgeTemplate.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -63,7 +63,7 @@ namespace SecureBadge.Controllers
             var badge = new PdfBadgeGenerator();
             var badgeModel = new BadgeModel();
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            badgeModel.URL = badge.GeneratePdfBatch(user.FirstName, user.LastName, assessment.BadgeTemplate);
+            badgeModel.URL = badge.GeneratePdfBatch(user.FirstName, user.LastName, assessment.BadgeTemplate, assessment.Title);
 
             return View(badgeModel);
         }

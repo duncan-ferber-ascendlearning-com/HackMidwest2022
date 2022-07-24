@@ -16,7 +16,7 @@ namespace SecureBadge.API
             IronPdf.License.LicenseKey = "IRONPDF.CJPUVVULA.31074-DE5C06B6BB-H7ZC66-GWTVQICY4PRW-BE44WGXLQJC3-MIBT2FF2A3TX-EJNF2IS4FVUH-QQYMC5XK55LO-Z3VHHC-TCR75QXPAESHEA-DEPLOYMENT.TRIAL-IGSAAE.TRIAL.EXPIRES.22.AUG.2022";
         }
 
-        public string GeneratePdfBatch(string firstName, string lastName, string badgeTemplate)
+        public string GeneratePdfBatch(string firstName, string lastName, string badgeTemplate, string assessmentName)
         {
             var renderer = new IronPdf.ChromePdfRenderer();
             var random = new Random();
@@ -25,7 +25,7 @@ namespace SecureBadge.API
             fileString = fileString.Replace("FirstName", Char.ToUpperInvariant(firstName[0]) + firstName.Substring(1).ToLowerInvariant())
                 .Replace("LastName", Char.ToUpperInvariant(lastName[0]) + lastName.Substring(1).ToLowerInvariant())
                 .Replace("DateAwarded", DateTime.Now.ToShortDateString())
-                .Replace("IMGTOKEN", ImageLinks.RandomImageFile(random.Next(0,2)));
+                .Replace("AssessmentName", assessmentName);
             renderer.RenderingOptions.CustomCssUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", "BadgeTemplate.css");
             var pdf = renderer.RenderHtmlAsPdf(fileString);
             var guid = Guid.NewGuid();
