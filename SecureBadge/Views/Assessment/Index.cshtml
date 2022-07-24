@@ -1,18 +1,25 @@
 ﻿@model IEnumerable<SecureBadge.Entities.Assessment>
 
 <div class="container">
-    @foreach (var item in Model)
-    {
-        <div>
-            @Html.ActionLink(
-                item.Title,
-                "Assessment",
-                "Assessment",
-                new
-                    {
-                   id = item.AssessmentID
-                }
-            )
-        </div>
+   <div class="row">
+    @foreach(var item in Model) {
+    
+          <div class="col-3">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">
+                    @Html.ActionLink(
+                                item.Title,                                                 
+                                "Assessment",                                   
+                                "Assessment",                                                  
+                                new {                                                    
+                                   id = item.AssessmentID
+                                }
+                            )
+                </h5>
+              </div>
+            </div>
+          </div>
     }
-    </div>
+   </div>
+</div>
