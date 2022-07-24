@@ -10,7 +10,6 @@
 <body>
     
     <div class="sidebar" id="mySidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         <partial name="_LoginPartial" />    
     @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" /></a>*@
@@ -28,7 +27,7 @@
         </div>*@
     </div>
     <div class="main">
-        <button class="openbtn" onclick="openNav()">☰ </button>
+        @*<button class="openbtn" onclick="openNav()">☰ </button>*@
         <header>
             <img src="~/images/logo.png" />
         </header>
