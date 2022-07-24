@@ -56,12 +56,14 @@ namespace SecureBadge.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Badge(AssessmentModel model)
+        public async Task<IActionResult> Badge(AssessmentResultModel model)
         {
+            var assessment = await _context.Assessments.FirstOrDefaultAsync(x => x.AssessmentID == model.AssessmentID);
+
             var badge = new PdfBadgeGenerator();
             var badgeModel = new BadgeModel();
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
-            badgeModel.URL = badge.GeneratePdfBatch(user.FirstName, user.LastName);
+            badgeModel.URL = badge.GeneratePdfBatch(user.FirstName, user.LastName, assessment.BadgeTemplate);
 
             return View(badgeModel);
         }
