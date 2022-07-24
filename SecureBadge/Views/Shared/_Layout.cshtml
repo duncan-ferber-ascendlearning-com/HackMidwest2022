@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    
     <div class="sidebar" id="mySidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -28,6 +29,10 @@
     </div>
     <div class="main">
         <button class="openbtn" onclick="openNav()">☰ </button>
+        <header>
+            <img src="~/images/logo.png" />
+        </header>
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

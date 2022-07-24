@@ -12,6 +12,10 @@ a {
   color: #0366d6;
 }
 
+header {
+    text-align: center;
+}
+
 .navbar-link {
     font-weight: bold;
 }
@@ -157,6 +161,7 @@ body {
     color: #111;
     padding: 10px 15px;
     border: none;
+    float: left;
 }
 
     .openbtn:hover {
