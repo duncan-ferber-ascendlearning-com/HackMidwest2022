@@ -9,5 +9,6 @@ namespace SecureBadge.Entities
     {
         public int AssessmentID { get; set; }
         public string Title { get; set; }
+        public string BadgeTemplate { get; set; }
     }
 }
