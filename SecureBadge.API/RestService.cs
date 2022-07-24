@@ -69,14 +69,14 @@ namespace SecureBadge.API
 
         }
 
-        public async Task<List<PinnedFileNameAndUrl>> GetPinnedFileListAsync()
+        public async Task<List<PinnedFileNameAndUrl>> GetPinnedFileListAsync(string name)
         {
             using var request = new HttpRequestMessage(new HttpMethod("GET"), "https://api.pinata.cloud/data/pinList?status=pinned&pinSizeMin=100");
             request.Headers.TryAddWithoutValidation("Authorization", "Bearer " + Jwt);
             var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
             var deserializedResult = JsonConvert.DeserializeObject<PinnedFileList>(result);
-            return (from row in deserializedResult.Rows where !string.IsNullOrEmpty(row.Metadata.KeyValues.Assessment) && !string.IsNullOrEmpty(row.Metadata.KeyValues.DateCompleted) && !string.IsNullOrEmpty(row.Metadata.KeyValues.TimeCompleted) select new PinnedFileNameAndUrl() { Name = row.Metadata.KeyValues.Assessment + "_Certificate " + row.Metadata.KeyValues.DateCompleted + ' ' + row.Metadata.KeyValues.TimeCompleted  , Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
+            return (from row in deserializedResult.Rows where row.Metadata.KeyValues.Name.ToLower().Trim() == name.ToLower().Trim() && !string.IsNullOrEmpty(row.Metadata.KeyValues.Assessment) && !string.IsNullOrEmpty(row.Metadata.KeyValues.DateCompleted) && !string.IsNullOrEmpty(row.Metadata.KeyValues.TimeCompleted) select new PinnedFileNameAndUrl() { Name = row.Metadata.KeyValues.Assessment + "_Certificate " + row.Metadata.KeyValues.DateCompleted + ' ' + row.Metadata.KeyValues.TimeCompleted  , Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
         }
 
         
