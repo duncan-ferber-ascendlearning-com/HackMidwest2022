@@ -57,7 +57,7 @@ namespace SecureBadge.API
                     MessagingProfileId = Guid.Parse("4001822e-47cc-49c9-9104-1e4fb22515e5"),
                     From = "+19133571167", // alphanumeric sender id
                     To = "+19136020379",
-                    Text = "Congratulations!.You earned a badge from Ascend Learning! Check it out!  " + result
+                    Text = "Congratulations! You earned a badge from Ascend Learning!" 
                 };
                 var messageResponse = service.CreateAsync(options).Result;
             }
