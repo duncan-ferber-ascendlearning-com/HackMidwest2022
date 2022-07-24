@@ -14,6 +14,10 @@ namespace SecureBadge.API.Models
     {
         [JsonProperty("company")]
         public string Company { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("assessment")]
+        public string Assessment { get; set; }
     }
 
 }

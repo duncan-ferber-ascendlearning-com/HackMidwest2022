@@ -22,8 +22,10 @@ namespace SecureBadge.API
             var random = new Random();
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", badgeTemplate + ".html");
             var fileString = File.ReadAllText(filePath);
-            fileString = fileString.Replace("FirstName", Char.ToUpperInvariant(firstName[0]) + firstName.Substring(1).ToLowerInvariant())
-                .Replace("LastName", Char.ToUpperInvariant(lastName[0]) + lastName.Substring(1).ToLowerInvariant())
+            var formatFirstName = Char.ToUpperInvariant(firstName[0]) + firstName.Substring(1).ToLowerInvariant();
+            var formatLastName = Char.ToUpperInvariant(lastName[0]) + lastName.Substring(1).ToLowerInvariant();
+            fileString = fileString.Replace("FirstName", formatFirstName)
+                .Replace("LastName", formatLastName)
                 .Replace("DateAwarded", DateTime.Now.ToShortDateString())
                 .Replace("AssessmentName", assessmentName);
             renderer.RenderingOptions.CustomCssUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", "BadgeTemplate.css");
@@ -33,7 +35,7 @@ namespace SecureBadge.API
             pdf.SaveAs(assetPath);
 
             var restService = new RestService();
-            var result = restService.PostToPinataApi(assetPath, guid + "_Certificate").Result;
+            var result = restService.PostToPinataApi(assetPath, guid + "_Certificate", assessmentName, formatFirstName + "_" + formatLastName).Result;
             return result;
         }
     }
