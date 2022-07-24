@@ -4,13 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SecureBadge</title>
+    <script src="https://kit.fontawesome.com/45ab0353cb.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     
     <div class="sidebar" id="mySidebar">
-        <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <a class="nav-link navbar-link" asp-area="" asp-controller="Home" asp-action="Index">
+             <i class="fa-solid fa-house"></i>
+            Home</a>
         <partial name="_LoginPartial" />    
     @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" /></a>*@
         @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
