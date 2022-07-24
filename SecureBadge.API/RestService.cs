@@ -13,7 +13,7 @@ namespace SecureBadge.API
         private readonly HttpClient _httpClient = new HttpClient();
         private const string Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIzNDk5YjUzYy04YTkxLTRmMzUtOGRmOC1jNWYyNmIzYjkzZTgiLCJlbWFpbCI6ImFzaG9rY2hpcnUxMjA1QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiIxMDY2MWVhZDY0NzZkMTA3MGMxMiIsInNjb3BlZEtleVNlY3JldCI6ImExYjE1OTc4NWJmN2Q5YmNmYjdjYWZjNDMyNjY5NTFlMDcxYmI2Mzc4ZDg5NTE1ZDBjMzFiNDVjNjJjOGIwZGQiLCJpYXQiOjE2NTg0MjUwMDB9.5miZT5bVNrF4SiQcnJHbIuH_MW4eM6yCWLnnsZ9Z7qY";
 
-        public async Task<string> PostToPinataApi(string assetPath, string fileName, string assessmentName, string name)
+        public async Task<string> PostToPinataApi(string assetPath, string fileName, string assessmentName, string name, string dateCompleted, string timeCompleted)
         {
 
             var buffer = AssetBytes(assetPath);
@@ -31,7 +31,9 @@ namespace SecureBadge.API
               {
                   Company = "Ascend Learning LLC",
                   Name = name,
-                  Assessment = assessmentName
+                  Assessment = assessmentName,
+                  DateCompleted = dateCompleted,
+                  TimeCompleted = timeCompleted
               }
 
             })), "pinataMetadata");
