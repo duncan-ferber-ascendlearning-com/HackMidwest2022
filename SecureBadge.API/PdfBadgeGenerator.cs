@@ -23,6 +23,7 @@ namespace SecureBadge.API
             fileString = fileString.Replace("FirstName", Char.ToUpperInvariant(firstName[0]) + firstName.Substring(1).ToLowerInvariant())
                 .Replace("LastName", Char.ToUpperInvariant(lastName[0]) + lastName.Substring(1).ToLowerInvariant())
                 .Replace("DateAwarded", DateTime.Now.ToShortDateString());
+            renderer.RenderingOptions.CustomCssUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", "BadgeTemplate.css");
             var pdf = renderer.RenderHtmlAsPdf(fileString);
             var guid = Guid.NewGuid();
             var assetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", guid + ".pdf");
