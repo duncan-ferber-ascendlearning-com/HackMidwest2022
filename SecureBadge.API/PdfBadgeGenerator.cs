@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using SecureBadge.API.Models;
 
 namespace SecureBadge.API
 {
@@ -18,11 +19,14 @@ namespace SecureBadge.API
         public string GeneratePdfBatch(string firstName, string lastName, string badgeTemplate)
         {
             var renderer = new IronPdf.ChromePdfRenderer();
+            var random = new Random();
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", badgeTemplate + ".html");
             var fileString = File.ReadAllText(filePath);
             fileString = fileString.Replace("FirstName", Char.ToUpperInvariant(firstName[0]) + firstName.Substring(1).ToLowerInvariant())
                 .Replace("LastName", Char.ToUpperInvariant(lastName[0]) + lastName.Substring(1).ToLowerInvariant())
-                .Replace("DateAwarded", DateTime.Now.ToShortDateString());
+                .Replace("DateAwarded", DateTime.Now.ToShortDateString())
+                .Replace("IMGTOKEN", ImageLinks.RandomImageFile(random.Next(0,2)));
+            renderer.RenderingOptions.CustomCssUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", "BadgeTemplate.css");
             var pdf = renderer.RenderHtmlAsPdf(fileString);
             var guid = Guid.NewGuid();
             var assetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BadgeTemplate\", guid + ".pdf");
