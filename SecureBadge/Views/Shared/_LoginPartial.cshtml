@@ -8,11 +8,14 @@
         <a class="nav-link text-dark" asp-controller="Assessment"
            asp-action="Index">My Assessments</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Badges">My Badges</a>
+    </li>
     <li>
         <a class="nav-link text-dark" asp-controller="Home" asp-action="Index"
            title="Welcome">Welcome @User.Claims.FirstOrDefault(c => c.Type == "firstname").Value @User.Claims.FirstOrDefault(c => c.Type == "lastname").Value!</a>
     </li>
-       
+
 }
 else
 {
