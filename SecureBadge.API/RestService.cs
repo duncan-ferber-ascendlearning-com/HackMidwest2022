@@ -76,8 +76,7 @@ namespace SecureBadge.API
             var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
             var deserializedResult = JsonConvert.DeserializeObject<PinnedFileList>(result);
-            var pinnedFiles = deserializedResult.Rows.Select(row => new PinnedFileNameAndUrl { Name = row.Metadata.Name, Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
-            return pinnedFiles;
+            return (from row in deserializedResult.Rows where !string.IsNullOrEmpty(row.Metadata.KeyValues.Assessment) select new PinnedFileNameAndUrl() { Name = row.Metadata.KeyValues.Assessment + "_Certificate", Url = "https://securebadge.mypinata.cloud/ipfs/" + row.IpfsPinHash }).ToList();
         }
 
         

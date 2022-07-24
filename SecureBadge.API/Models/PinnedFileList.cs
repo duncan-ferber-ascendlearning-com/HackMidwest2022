@@ -17,7 +17,7 @@ namespace SecureBadge.API.Models
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("keyvalues")]
-        public object KeyValues { get; set; }
+        public KeyValues KeyValues { get; set; }
     }
 
     public class Region
